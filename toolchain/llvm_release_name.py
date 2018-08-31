@@ -67,8 +67,10 @@ def _linux(llvm_version):
         os_name = "linux-gnu-ubuntu-16.04"
     elif distname == "fedora":
         os_name = "linux-gnu-Fedora%s" % version
+    elif distname == "centos" and version == "7":
+        os_name = "linux-gnu-Fedora27"
     else:
-        sys.exit("Unsupported linux distribution: %s" % distname)
+        sys.exit("Unsupported linux distribution: %s-%s" % (distname, version))
 
     return "clang+llvm-{llvm_version}-{arch}-{os_name}.tar.xz".format(
         llvm_version=llvm_version,
