@@ -45,7 +45,7 @@ def _linux(llvm_version):
             info[key] = val
     if "ID" not in info:
         sys.exit("Could not find ID in /etc/os-release.")
-    distname = info["ID"]
+    distname = info["ID"].strip('"')
 
     version = None
     if "VERSION_ID" in info:
