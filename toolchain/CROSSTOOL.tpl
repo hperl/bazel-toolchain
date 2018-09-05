@@ -79,6 +79,7 @@ toolchain {
 
   # Linker
   linker_flag: "-lm"
+  linker_flag: "-llzma"
   linker_flag: "-fuse-ld=gold"
   linker_flag: "-Wl,--build-id=md5"
   linker_flag: "-Wl,--hash-style=gnu"
