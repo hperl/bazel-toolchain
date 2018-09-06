@@ -45,7 +45,7 @@ def _linux(llvm_version):
             info[key] = val
     if "ID" not in info:
         sys.exit("Could not find ID in /etc/os-release.")
-    distname = info["ID"]
+    distname = info["ID"].strip('"')
 
     version = None
     if "VERSION_ID" in info:
@@ -67,8 +67,12 @@ def _linux(llvm_version):
         os_name = "linux-gnu-ubuntu-16.04"
     elif distname == "fedora":
         os_name = "linux-gnu-Fedora%s" % version
+    elif distname == "centos" and version == "7" and llvm_version == "6.0.0":
+        os_name = "linux-gnu-Fedora27"
+    elif distname == "centos" and version == "7" and llvm_version == "6.0.1":
+        os_name = "linux-sles12.3"
     else:
-        sys.exit("Unsupported linux distribution: %s" % distname)
+        sys.exit("Unsupported linux distribution: %s-%s" % (distname, version))
 
     return "clang+llvm-{llvm_version}-{arch}-{os_name}.tar.xz".format(
         llvm_version=llvm_version,
